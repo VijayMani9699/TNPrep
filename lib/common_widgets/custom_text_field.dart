@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.controller,
+    this.validator,
   });
 
   @override
@@ -31,10 +33,12 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           controller: controller,
           obscureText: obscureText,
+          validator: validator,
           decoration: InputDecoration(
+            helperText: ' ',
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey.shade400),
             filled: true,
@@ -53,6 +57,15 @@ class CustomTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: AppColors.primary),
             ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            errorStyle: const TextStyle(color: Colors.red),
             suffixIcon: suffixIcon,
           ),
         ),
