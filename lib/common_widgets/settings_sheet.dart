@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../core/localization/locale_provider.dart';
 
 class SettingsSheet extends StatefulWidget {
   const SettingsSheet({super.key});
@@ -10,11 +13,16 @@ class SettingsSheet extends StatefulWidget {
 
 class _SettingsSheetState extends State<SettingsSheet> {
   // Temporary state for demonstration
-  int _languageGroupValue = 0;
   int _themeGroupValue = 2; // Default to System
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeProvider = Provider.of<LocaleProvider>(context);
+
+    // Map language code to index for the segmented control
+    int languageGroupValue = localeProvider.locale.languageCode == 'ta' ? 1 : 0;
+
     return Material(
       color: Colors.transparent,
       child: Container(
@@ -42,10 +50,10 @@ class _SettingsSheetState extends State<SettingsSheet> {
             const SizedBox(height: 16),
 
             // Title
-            const Center(
+            Center(
               child: Text(
-                "Settings",
-                style: TextStyle(
+                l10n.settingsTitle,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -55,9 +63,9 @@ class _SettingsSheetState extends State<SettingsSheet> {
             const SizedBox(height: 16),
 
             // Language Section
-            const Text(
-              "Language Settings",
-              style: TextStyle(
+            Text(
+              l10n.languageSettings,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -67,16 +75,16 @@ class _SettingsSheetState extends State<SettingsSheet> {
             SizedBox(
               width: double.infinity,
               child: CupertinoSlidingSegmentedControl<int>(
-                groupValue: _languageGroupValue,
-                children: const {
-                  0: Text("English"),
-                  1: Text("Tamil"),
+                groupValue: languageGroupValue,
+                children: {
+                  0: Text(l10n.english),
+                  1: Text(l10n.tamil),
                 },
                 onValueChanged: (int? value) {
                   if (value != null) {
-                    setState(() {
-                      _languageGroupValue = value;
-                    });
+                    final newLocale =
+                        value == 1 ? const Locale('ta') : const Locale('en');
+                    localeProvider.setLocale(newLocale);
                   }
                 },
                 backgroundColor: Colors.grey.shade200,
@@ -86,9 +94,9 @@ class _SettingsSheetState extends State<SettingsSheet> {
             const SizedBox(height: 16),
 
             // Appearance Section
-            const Text(
-              "Appearance",
-              style: TextStyle(
+            Text(
+              l10n.appearance,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -99,10 +107,10 @@ class _SettingsSheetState extends State<SettingsSheet> {
               width: double.infinity,
               child: CupertinoSlidingSegmentedControl<int>(
                 groupValue: _themeGroupValue,
-                children: const {
-                  0: Text("Light"),
-                  1: Text("Dark"),
-                  2: Text("System"),
+                children: {
+                  0: Text(l10n.light),
+                  1: Text(l10n.dark),
+                  2: Text(l10n.system),
                 },
                 onValueChanged: (int? value) {
                   if (value != null) {

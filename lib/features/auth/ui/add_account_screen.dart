@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAccountScreen extends StatelessWidget {
   const AddAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Add Account",
-          style: TextStyle(color: Colors.black87),
+        title: Text(
+          l10n.addAccountTitle,
+          style: const TextStyle(color: Colors.black87),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black87),
       ),
       backgroundColor: Colors.white,
-      body: const Center(
+      body: Center(
         child: Text(
-          "Create your account here",
-          style: TextStyle(
+          l10n.createAccountBody,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
