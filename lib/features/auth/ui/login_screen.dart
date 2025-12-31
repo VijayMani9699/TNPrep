@@ -5,6 +5,7 @@ import '../../../common_widgets/custom_text_field.dart';
 import '../../../common_widgets/primary_button.dart';
 
 import '../../../common_widgets/settings_sheet.dart';
+import '../../exams/ui/exam_selection_screen.dart';
 import 'add_account_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -91,11 +92,17 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-const SizedBox(height: 10),
+                const SizedBox(height: 10),
                 // Login Button
                 PrimaryButton(
                   text: "Log In",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ExamSelectionScreen()),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 24),
