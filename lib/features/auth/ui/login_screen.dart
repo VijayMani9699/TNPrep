@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../common_widgets/custom_text_field.dart';
 import '../../../common_widgets/primary_button.dart';
 import '../../../common_widgets/social_login_button.dart';
+import '../../../common_widgets/settings_sheet.dart';
 import 'add_account_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -26,7 +28,10 @@ class LoginScreen extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.settings, color: Colors.black87),
                     onPressed: () {
-                      // TODO: Implement language selection
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => const SettingsSheet(),
+                      );
                     },
                   ),
                 ),
